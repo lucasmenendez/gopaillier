@@ -30,7 +30,7 @@ func main() {
 	// Calculating some operations:
 	//     - A' + B
 	//     - A' + B'
-	//     - A' + B + B
+	//     - A' - B
 	//     - A' * B
 	var sub = key.PubKey.Sub(encryptedA, inputB)
 	var sum = key.PubKey.Add(encryptedA, inputB)
