@@ -62,8 +62,6 @@ func main() {
 	fmt.Printf("Decrypted Sub: %.2f - %.2f = %.2f\n\n", a, b, decodedSub)
 	fmt.Printf("Encrypted Mul (A' * B): %d\n", mul)
 	fmt.Printf("Decrypted Mul: %.2f * %.2f = %.2f\n\n", a, b, decodedMul)
-	// fmt.Printf("Encrypted Div (A' / B): %d\n", div)
-	// fmt.Printf("Decrypted Div: %.2f / %.2f = %.2f\n\n", a, b, decodedDiv)
 
 	// Calc median
 	var numbers = []int64{4, 27, 2, 39, 25, 37, 85, 17, 15, 21, 58, 27, 77, 4, 91, 64, 90, 78, 48, 43, 40, 55, 56, 57, 92, 50, 78, 6, 42, 64, 19, 14, 7, 61, 87, 86, 73, 82, 72, 48, 28, 76, 49, 65, 34, 81, 40, 10, 83, 70, 30, 55, 35, 85, 45, 6, 41, 24, 42, 61, 34, 54, 88, 14, 99, 23, 9, 69, 36, 18, 59, 49, 48, 14, 13, 11, 42, 80, 91, 50, 35, 26, 90, 60, 41, 26, 85, 84, 9, 79, 30, 81, 51, 90, 16, 21, 13, 69, 57, 71}
