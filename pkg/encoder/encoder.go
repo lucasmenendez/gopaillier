@@ -2,8 +2,8 @@ package encoder
 
 import "math/big"
 
-var Precision int64 = 5
-var Factor = new(big.Int).Exp(big.NewInt(10), big.NewInt(Precision), nil)
+var decimals int64 = 5
+var Factor = new(big.Int).Exp(big.NewInt(10), big.NewInt(decimals), nil)
 
 var (
 	intTransformer   = Factor
