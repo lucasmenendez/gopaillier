@@ -48,17 +48,19 @@ func NewKeys(size int) (*PrivateKey, error) {
 	}, nil
 }
 
-func (key *PublicKey) Encrypt(input *big.Int) (output *big.Int, err error) {
+func (key *PublicKey) Encrypt(input *big.Int) (*big.Int, error) {
 	if input.Cmp(key.N) != -1 {
-		err = errors.New("input too long on encrypt")
-		return
+		return nil, errors.New("input too long on encrypt")
 	}
 
-	var r *big.Int
-	var size = new(big.Int).SetInt64(key.Len)
+	var (
+		err  error
+		r    *big.Int
+		size = new(big.Int).SetInt64(key.Len)
+	)
 	for {
 		if r, err = rand.Int(rand.Reader, size); err != nil {
-			return
+			return nil, err
 		}
 
 		if gdc := new(big.Int).GCD(nil, nil, r, key.N); gdc.Cmp(bOne) == 0 {
@@ -66,11 +68,14 @@ func (key *PublicKey) Encrypt(input *big.Int) (output *big.Int, err error) {
 		}
 	}
 
-	var gm = new(big.Int).Exp(key.G, input, key.Nsq)
-	var rn = new(big.Int).Exp(r, key.N, key.Nsq)
-	var gmrn = new(big.Int).Mul(gm, rn)
-	output = new(big.Int).Mod(gmrn, key.Nsq)
-	return
+	var (
+		gm     = new(big.Int).Exp(key.G, input, key.Nsq)
+		rn     = new(big.Int).Exp(r, key.N, key.Nsq)
+		gmrn   = new(big.Int).Mul(gm, rn)
+		output = new(big.Int).Mod(gmrn, key.Nsq)
+	)
+
+	return output, nil
 }
 
 func (key *PrivateKey) Decrypt(input *big.Int) (*big.Int, error) {
@@ -78,9 +83,21 @@ func (key *PrivateKey) Decrypt(input *big.Int) (*big.Int, error) {
 		return nil, errors.New("input too long on decrypt")
 	}
 
-	var cd = new(big.Int).Exp(input, key.d, key.PubKey.Nsq)
-	var l = new(big.Int).Div(new(big.Int).Sub(cd, bOne), key.PubKey.N)
-	return new(big.Int).Mod(new(big.Int).Mul(l, key.u), key.PubKey.N), nil
+	var (
+		cd = new(big.Int).Exp(input, key.d, key.PubKey.Nsq)
+		l  = new(big.Int).Div(new(big.Int).Sub(cd, bOne), key.PubKey.N)
+		d  = new(big.Int).Mod(new(big.Int).Mul(l, key.u), key.PubKey.N)
+	)
+
+	// Parse sign appliying: D'(c) = [D(c)]_n.
+	// Where [x]_n = ((x + ⌊n/2⌋) mod n) - ⌊n/2⌋
+	// https://tinyurl.com/paillier-subtraction-negatives
+	var (
+		n2 = new(big.Int).Div(key.PubKey.N, big.NewInt(2))
+		xn = new(big.Int).Mod(new(big.Int).Add(d, n2), key.PubKey.N)
+	)
+
+	return new(big.Int).Sub(xn, n2), nil
 }
 
 func (key *PublicKey) AddEncrypted(a, b *big.Int) *big.Int {
@@ -88,10 +105,26 @@ func (key *PublicKey) AddEncrypted(a, b *big.Int) *big.Int {
 }
 
 func (key *PublicKey) Add(a, b *big.Int) *big.Int {
+	// x * y mod n^2
 	var gb = new(big.Int).Exp(key.G, b, key.Nsq)
 	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
 }
 
 func (key *PublicKey) Mul(a, b *big.Int) *big.Int {
 	return new(big.Int).Exp(a, b, key.Nsq)
+}
+
+func (key *PublicKey) Sub(a, b *big.Int) *big.Int {
+	// x * -y mod n^2
+	var bn = new(big.Int).Neg(b)
+	var gb = new(big.Int).Exp(key.G, bn, key.Nsq)
+	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
+}
+
+func (key *PublicKey) Div(a, b *big.Int) *big.Int {
+	// Only make sense if D(a) is divisible by b
+	// a^(b^-1 mod n) mod nsq
+
+	var bn = new(big.Int).ModInverse(b, key.N)
+	return key.Mul(a, bn)
 }
