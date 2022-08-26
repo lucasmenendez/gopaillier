@@ -40,7 +40,7 @@ func TestEncryptDecrypt(t *testing.T) {
 	var err error
 	var client, _ = InitClient(512)
 
-	var wrongNum, _ = rand.Prime(rand.Reader, 1024)
+	var wrongNum, _ = rand.Prime(rand.Reader, 2048)
 	var encodedWrong = &number.Number{Base: wrongNum, Exp: big.NewInt(0)}
 	if _, err = client.Encrypt(encodedWrong); err == nil {
 		t.Fatal("expected error, got nil")

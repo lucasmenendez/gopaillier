@@ -37,8 +37,9 @@ func (num *Number) SetFloat(input float64) *Number {
 		diff = new(big.Float).Sub(bInput, big.NewFloat(float64(base)))
 	}
 
-	num.Base = big.NewInt(base)
-	num.Exp = big.NewInt(exp)
+	var numInt = new(Number).SetInt(base)
+	num.Base = numInt.Base
+	num.Exp = new(big.Int).Add(numInt.Exp, big.NewInt(exp))
 	return num
 }
 

@@ -31,9 +31,9 @@ func TestSetInt(t *testing.T) {
 }
 
 func TestSetFloat(t *testing.T) {
-	var A, B float64 = 0.125, -12400.36
-	var aBase, aExp *big.Int = big.NewInt(125), big.NewInt(-3)
-	var bBase, bExp *big.Int = big.NewInt(-1240036), big.NewInt(-2)
+	var A, B float64 = -800, 12400.36
+	var aBase, aExp *big.Int = big.NewInt(-8), big.NewInt(2)
+	var bBase, bExp *big.Int = big.NewInt(1240036), big.NewInt(-2)
 
 	var resA = new(Number).SetFloat(A)
 	var resB = new(Number).SetFloat(B)
