@@ -33,8 +33,6 @@ func main() {
 	var mul = key.PubKey.Mul(encryptedA, b)
 
 	// Decrypting results
-
-	// Sub
 	var decryptedSum, _ = key.Decrypt(sum)
 	var decryptedSumEnc, _ = key.Decrypt(sumEnc)
 	var decryptedSub, _ = key.Decrypt(sub)

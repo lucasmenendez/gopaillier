@@ -18,11 +18,15 @@ func InitClient() (*Client, error) {
 }
 
 func (client *Client) Encrypt(num *number.Number) *number.Number {
-	num.Base, _ = client.Key.PubKey.Encrypt(num.Base)
-	return num
+	var result = new(number.Number)
+	result.Base, _ = client.Key.PubKey.Encrypt(num.Base)
+	result.Exp = num.Exp
+	return result
 }
 
 func (client *Client) Decrypt(num *number.Number) *number.Number {
-	num.Base, _ = client.Key.Decrypt(num.Base)
-	return num
+	var result = new(number.Number)
+	result.Base, _ = client.Key.Decrypt(num.Base)
+	result.Exp = num.Exp
+	return result
 }
