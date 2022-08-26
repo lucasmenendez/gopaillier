@@ -29,7 +29,7 @@ func main() {
 	//     - A' * B
 	var sum = key.PubKey.Add(encryptedA, b)
 	var sumEnc = key.PubKey.AddEncrypted(encryptedA, encryptedB)
-	var sub = key.PubKey.Sub(encryptedA, b)
+	var sub = key.PubKey.Add(encryptedA, new(big.Int).Neg(b))
 	var mul = key.PubKey.Mul(encryptedA, b)
 
 	// Decrypting results

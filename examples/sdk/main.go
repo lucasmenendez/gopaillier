@@ -21,7 +21,7 @@ func main() {
 	var aEncrypted = aClient.Encrypt(aNum)
 
 	// Set B plain data and convert to Number
-	var bData float64 = -0.05
+	var bData float64 = -0.00005
 	var bNum *number.Number = new(number.Number).SetFloat(bData)
 	// var bNum *number.Number = new(number.Number).SetFloat(bData, defaultPrecision)
 
@@ -44,9 +44,9 @@ func main() {
 	var aMul = mulDecrypted.Float()
 	var aDiv = divDecrypted.Float()
 
-	fmt.Printf("%.2f + %.2f = %.2f\n", aData, bData, aSum)
-	fmt.Printf("%.2f - %.2f = %.2f\n", aData, bData, aSub)
-	fmt.Printf("%.2f * %.2f = %.2f\n", aData, bData, aMul)
-	fmt.Printf("%.2f / %.2f = %.2f\n", aData, bData, aDiv)
+	fmt.Printf("%f + %f = %f\n", aData, bData, aSum)
+	fmt.Printf("%f - %f = %f\n", aData, bData, aSub)
+	fmt.Printf("%f * %f = %f\n", aData, bData, aMul)
+	fmt.Printf("%f / %f = %f\n", aData, bData, aDiv)
 
 }

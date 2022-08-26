@@ -110,21 +110,6 @@ func (key *PublicKey) Add(a, b *big.Int) *big.Int {
 	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
 }
 
-func (key *PublicKey) Sub(a, b *big.Int) *big.Int {
-	// x * -y mod n^2
-	var bn = new(big.Int).Neg(b)
-	var gb = new(big.Int).Exp(key.G, bn, key.Nsq)
-	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
-}
-
 func (key *PublicKey) Mul(a, b *big.Int) *big.Int {
 	return new(big.Int).Exp(a, b, key.Nsq)
-}
-
-func (key *PublicKey) Div(a, b *big.Int) *big.Int {
-	// Only make sense if D(a) is divisible by b
-	// a^(b^-1 mod n) mod nsq
-
-	var bn = new(big.Int).ModInverse(b, key.N)
-	return key.Mul(a, bn)
 }
