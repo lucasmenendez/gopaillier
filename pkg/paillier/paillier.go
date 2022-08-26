@@ -1,5 +1,7 @@
 package paillier
 
+// https://en.wikipedia.org/wiki/Paillier_cryptosystem
+
 import (
 	"crypto/rand"
 	"errors"

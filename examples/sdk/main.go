@@ -17,7 +17,7 @@ func main() {
 
 	// Instance client and encrypt data and send encrypted data to a third
 	// party with the public key.
-	var aClient, _ = sdk.InitClient()
+	var aClient, _ = sdk.InitClient(512)
 	var aEncrypted, _ = aClient.Encrypt(aNum)
 
 	// Set B plain data and convert to Number

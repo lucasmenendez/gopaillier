@@ -9,11 +9,11 @@ type Client struct {
 	Key *paillier.PrivateKey
 }
 
-func InitClient() (*Client, error) {
+func InitClient(keySize int) (*Client, error) {
 	var err error
 	var client = &Client{}
 
-	client.Key, err = paillier.NewKeys(128)
+	client.Key, err = paillier.NewKeys(keySize)
 	return client, err
 }
 
