@@ -18,7 +18,7 @@ func main() {
 	// Instance client and encrypt data and send encrypted data to a third
 	// party with the public key.
 	var aClient, _ = sdk.InitClient()
-	var aEncrypted = aClient.Encrypt(aNum)
+	var aEncrypted, _ = aClient.Encrypt(aNum)
 
 	// Set B plain data and convert to Number
 	var bData float64 = -0.00005
@@ -34,10 +34,10 @@ func main() {
 
 	// Send the encrypted Mul to A to decrypt the value and print the plain
 	// Mul.
-	var sumDecrypted = aClient.Decrypt(sumEncrypted)
-	var subDecrypted = aClient.Decrypt(subEncrypted)
-	var mulDecrypted = aClient.Decrypt(mulEncrypted)
-	var divDecrypted = aClient.Decrypt(divEncrypted)
+	var sumDecrypted, _ = aClient.Decrypt(sumEncrypted)
+	var subDecrypted, _ = aClient.Decrypt(subEncrypted)
+	var mulDecrypted, _ = aClient.Decrypt(mulEncrypted)
+	var divDecrypted, _ = aClient.Decrypt(divEncrypted)
 
 	var aSum = sumDecrypted.Float()
 	var aSub = subDecrypted.Float()

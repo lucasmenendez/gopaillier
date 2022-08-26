@@ -105,11 +105,12 @@ func (key *PublicKey) AddEncrypted(a, b *big.Int) *big.Int {
 }
 
 func (key *PublicKey) Add(a, b *big.Int) *big.Int {
-	// x * y mod n^2
+	// x * g^y mod n^2
 	var gb = new(big.Int).Exp(key.G, b, key.Nsq)
 	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
 }
 
 func (key *PublicKey) Mul(a, b *big.Int) *big.Int {
+	// x^y mod n^2
 	return new(big.Int).Exp(a, b, key.Nsq)
 }

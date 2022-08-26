@@ -17,7 +17,7 @@ func main() {
 
 	// Instance the sumatories with the first value
 	var rawSumatory = float64(first)
-	var encryptedSumatory = aClient.Encrypt(encodedfirst)
+	var encryptedSumatory, _ = aClient.Encrypt(encodedfirst)
 
 	// Complete the sumatories iterating over the rest of the records
 	for _, num := range numbers[1:] {
@@ -32,7 +32,7 @@ func main() {
 	var encryptedMedian = sdk.Div(aClient.Key.PubKey, encryptedSumatory, encodedLen)
 
 	// Decrypt it and decode it
-	var decryptedMedian = aClient.Decrypt(encryptedMedian)
+	var decryptedMedian, _ = aClient.Decrypt(encryptedMedian)
 	var decodedMedian = decryptedMedian.Float()
 
 	// Calc raw median
