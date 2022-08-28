@@ -58,7 +58,7 @@ func Add(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	return new(number.Number).SetEncrypted(result), nil
 }
 
-// Function Sub computes the substraction of the encrypted number.Number and the
+// Function Sub computes the subtraction of the encrypted number.Number and the
 // input number.Number provided. To perform the operation, it computes the
 // negative version of the provided input first and then calculates the addition
 // of between it and the encrypted number.Number. It returns an error if the

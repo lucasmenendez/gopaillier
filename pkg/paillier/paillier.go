@@ -41,7 +41,7 @@ func NewKeys(size int) (*PrivateKey, error) {
 		return nil, errors.New("size must be greater than 16")
 	}
 
-	// Calc p and q large prime numbers with equivalent lenght
+	// Calc p and q large prime numbers with equivalent length
 	var p, q *big.Int
 	if p, err = rand.Prime(rand.Reader, size); err != nil {
 		return nil, err

@@ -13,7 +13,6 @@ func main() {
 	// Set A plain data and convert to Number
 	var aData float64 = 12.2
 	var aNum *number.Number = new(number.Number).SetFloat(aData)
-	// var aNum *number.Number = new(number.Number).SetFloat(aData, defaultPrecision)
 
 	// Instance client and encrypt data and send encrypted data to a third
 	// party with the public key.
@@ -23,10 +22,9 @@ func main() {
 	// Set B plain data and convert to Number
 	var bData float64 = -0.00005
 	var bNum *number.Number = new(number.Number).SetFloat(bData)
-	// var bNum *number.Number = new(number.Number).SetFloat(bData, defaultPrecision)
 
-	// Perform the multiplication between the encrypted recived Number and the B
-	// Number using the received public key.
+	// Perform the multiplication between the encrypted received Number and the 
+	// B Number using the received public key.
 	var sumEncrypted, _ = sdk.Add(aClient.Key.PubKey, aEncrypted, bNum)
 	var subEncrypted, _ = sdk.Sub(aClient.Key.PubKey, aEncrypted, bNum)
 	var mulEncrypted, _ = sdk.Mul(aClient.Key.PubKey, aEncrypted, bNum)

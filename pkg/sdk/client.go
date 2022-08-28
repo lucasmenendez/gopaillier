@@ -1,6 +1,6 @@
 // Package SDK allows to interact with paillier package easily, allowing to use
 // floating point and integer numbers with it, and supporting more operations
-// such as substraction and division over encrypted numbers.
+// such as subtraction and division over encrypted numbers.
 package sdk
 
 import (
