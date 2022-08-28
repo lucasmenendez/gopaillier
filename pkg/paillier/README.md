@@ -17,6 +17,12 @@ go get github.com/lucasmenendez/gopaillier/pkg/paillier
 
 ### Basic use
 
+With this package you can perform 4 actions over [big.Int](https://pkg.go.dev/math/big)'s numbers:
+ - Encryption and decryption
+ - Addition between cipher numbers.
+ - Addition between cipher number and plain number.
+ - Multiplication between cipher number and plain number.
+
 Checkout and basic example [here](/examples/basic/main.go).
 
 #### Encrypt and decrypt inputs
