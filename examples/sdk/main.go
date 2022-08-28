@@ -27,10 +27,10 @@ func main() {
 
 	// Perform the multiplication between the encrypted recived Number and the B
 	// Number using the received public key.
-	var sumEncrypted = sdk.Add(aClient.Key.PubKey, aEncrypted, bNum)
-	var subEncrypted = sdk.Sub(aClient.Key.PubKey, aEncrypted, bNum)
-	var mulEncrypted = sdk.Mul(aClient.Key.PubKey, aEncrypted, bNum)
-	var divEncrypted = sdk.Div(aClient.Key.PubKey, aEncrypted, bNum)
+	var sumEncrypted, _ = sdk.Add(aClient.Key.PubKey, aEncrypted, bNum)
+	var subEncrypted, _ = sdk.Sub(aClient.Key.PubKey, aEncrypted, bNum)
+	var mulEncrypted, _ = sdk.Mul(aClient.Key.PubKey, aEncrypted, bNum)
+	var divEncrypted, _ = sdk.Div(aClient.Key.PubKey, aEncrypted, bNum)
 
 	// Send the encrypted Mul to A to decrypt the value and print the plain
 	// Mul.

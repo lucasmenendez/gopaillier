@@ -24,12 +24,12 @@ func main() {
 		rawSumatory += float64(num)
 
 		var encoded = new(number.Number).SetInt(num)
-		encryptedSumatory = sdk.Add(aClient.Key.PubKey, encryptedSumatory, encoded)
+		encryptedSumatory, _ = sdk.Add(aClient.Key.PubKey, encryptedSumatory, encoded)
 	}
 
 	// Get decrypted median dividing the decrypted sumatory by the number of items
 	var encodedLen = new(number.Number).SetInt(int64(len(numbers)))
-	var encryptedMedian = sdk.Div(aClient.Key.PubKey, encryptedSumatory, encodedLen)
+	var encryptedMedian, _ = sdk.Div(aClient.Key.PubKey, encryptedSumatory, encodedLen)
 
 	// Decrypt it and decode it
 	var decryptedMedian, _ = aClient.Decrypt(encryptedMedian)
