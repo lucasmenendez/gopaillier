@@ -11,9 +11,9 @@ import (
 )
 
 // Struct Client contains a Paillier key pair allowing to encrypt and decrypt
-// number.Number instances. Sharing Client.Key.PubKey (a paillier.PubKey
+// number.Number instances. Sharing Client.Key.PubKey (a paillier.PublicKey
 // instance) with an external actor, it could compute operations over a
-// number.Number encrypted with the same paillier.PubKey.
+// number.Number encrypted with the same paillier.PublicKey.
 type Client struct {
 	Key *paillier.PrivateKey
 }
