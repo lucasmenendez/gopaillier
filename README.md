@@ -14,6 +14,18 @@ Extended version of a Paillier cryptosystem implementation in Go.
   - Multiplication between encrypted and plain numbers: `A' * B`.
   - Division between encrypted and plain numbers: `A' * 1/B`.
 
+## Installation
+
+* Full package:
+```sh
+go get github.com/lucasmenendez/gopaillier
+```
+
+* Basic Paillier cryptosystem implementation (read more [here](./pkg/paillier/)): 
+```sh
+go get github.com/lucasmenendez/gopaillier/pkg/paillier
+```
+
 ## Examples
 There are three basic examples ready to help starting with the library:
 - Basic Paillier example: [Source code](./examples/basic/main.go).
