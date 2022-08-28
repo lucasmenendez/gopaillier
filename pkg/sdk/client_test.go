@@ -55,7 +55,7 @@ func TestEncryptDecrypt(t *testing.T) {
 	var encryptedA, decryptedA = new(number.Number), new(number.Number)
 	if encryptedA, err = client.Encrypt(encodedA); err != nil {
 		t.Fatalf("expected nil, got %s", err)
-	}  else if decryptedA, err = client.Decrypt(encryptedA); err != nil {
+	} else if decryptedA, err = client.Decrypt(encryptedA); err != nil {
 		t.Fatalf("expected nil, got %s", err)
 	} else if a != decryptedA.Float() {
 		t.Fatalf("expected nil, got %s", err)
