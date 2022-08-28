@@ -64,19 +64,19 @@ func (num *Number) Int() (output int64) {
 }
 
 func (num *Number) Float() (output float64) {
-	var fOutput = new(big.Float).SetInt(num.Base)
+	var bOutput = new(big.Float).SetInt(num.Base)
 	var exp = num.Exp.Int64()
 
 	for exp != 0 {
 		if exp > 0 {
-			fOutput.Mul(fOutput, fTen)
+			bOutput.Mul(bOutput, fTen)
 			exp--
 		} else {
-			fOutput.Quo(fOutput, fTen)
+			bOutput.Quo(bOutput, fTen)
 			exp++
 		}
 	}
 
-	output, _ = fOutput.Float64()
+	output, _ = bOutput.Float64()
 	return
 }
