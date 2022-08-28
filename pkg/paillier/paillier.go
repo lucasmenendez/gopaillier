@@ -3,7 +3,7 @@
 // algorithm for public key cryptography, that support homomorphic addition and
 // multiplication of plaintexts to a ciphertext.
 // The current package extends the original Paillier Cryptosystem to support
-// same homomorphic operation over non-positivo integers with an optimized
+// same homomorphic operation over non-positive integers with an optimized
 // decryption procedure (read more here: https://eprint.iacr.org/2010/520).
 // Read more: https://en.wikipedia.org/wiki/Paillier_cryptosystem
 package paillier
