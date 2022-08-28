@@ -25,28 +25,24 @@ func Add(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	}
 
 	var result = new(number.Number)
-	result.SetEncrypted(true)
-
-	var cmp = encrypted.Exp.Cmp(input.Exp)
-	if cmp == 0 {
+	if cmp := encrypted.Exp.Cmp(input.Exp); cmp == 0 {
 		result.Exp = encrypted.Exp
 		result.Value = key.Add(encrypted.Value, input.Value)
-		return result, nil
-	}
-
-	var expDiff = new(big.Int).Abs(new(big.Int).Sub(encrypted.Exp, input.Exp))
-	var factor = new(big.Int).Exp(big.NewInt(10), expDiff, nil)
-	if cmp > 0 {
-		result.Exp = input.Exp
-		var normalized = key.Mul(encrypted.Value, factor)
-		result.Value = key.Add(normalized, input.Value)
 	} else {
-		result.Exp = encrypted.Exp
-		var normalized = new(big.Int).Mul(input.Value, factor)
-		result.Value = key.Add(encrypted.Value, normalized)
+		var expDiff = new(big.Int).Abs(new(big.Int).Sub(encrypted.Exp, input.Exp))
+		var factor = new(big.Int).Exp(big.NewInt(10), expDiff, nil)
+		if cmp > 0 {
+			result.Exp = input.Exp
+			var normalized = key.Mul(encrypted.Value, factor)
+			result.Value = key.Add(normalized, input.Value)
+		} else {
+			result.Exp = encrypted.Exp
+			var normalized = new(big.Int).Mul(input.Value, factor)
+			result.Value = key.Add(encrypted.Value, normalized)
+		}
 	}
 
-	return result, nil
+	return new(number.Number).SetEncrypted(result), nil
 }
 
 // Function Sub
@@ -70,8 +66,7 @@ func Mul(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	var result = new(number.Number)
 	result.Value = key.Mul(encrypted.Value, input.Value)
 	result.Exp = new(big.Int).Add(encrypted.Exp, input.Exp)
-	result.SetEncrypted(true)
-	return result, nil
+	return new(number.Number).SetEncrypted(result), nil
 }
 
 // Function Div

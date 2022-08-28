@@ -26,7 +26,10 @@ func TestSetEncrypted(t *testing.T) {
 		t.Fatalf("expected false, got %t", num.encrypted)
 	}
 
-	num.SetEncrypted(true)
+	var value = big.NewInt(123)
+	var exp = big.NewInt(3)
+	var input = &Number{value, exp, false}
+	num.SetEncrypted(input)
 	if num.encrypted != true || num.IsEncrypted() != true {
 		t.Fatalf("expected true, got %t", num.encrypted)
 	}

@@ -1,4 +1,12 @@
-// Package number
+// Package number provide a common representation of integers and floating point
+// numbers uting big.Int's. It transform any number into its integer based
+// standard form representation, storing its integer value and the correct
+// exponent to keep the original value:
+//
+//	X = value * 10^exp --> 1.032 = 1032 * 10^-3
+//
+// This package allows to use any integer based cryptosystem over floating point
+// numbers too.
 package number
 
 import "math/big"
@@ -8,23 +16,44 @@ var iTen = big.NewInt(10)
 var fZero = big.NewFloat(0)
 var fTen = big.NewFloat(10)
 
-// Struct Number
+// Struct Number includes the integers value of the original number with the
+// original power of ten exponent, allowing to encrypt and decrypt the value and
+// operate over it.
 type Number struct {
 	Value     *big.Int
 	Exp       *big.Int
 	encrypted bool
 }
 
-// Function Set
+// Function IsEncrypted return if the current number representation is encrypted
+// or not.
+func (num *Number) IsEncrypted() bool {
+	return num.encrypted
+}
+
+// Function Set copy the values of the original Number into the current Number
+// num and return it as result. By default, the resulting Number will be
+// created as decrypted, to create as encrypted use number.SetEncrypted()
+// function.
 func (num *Number) Set(original *Number) *Number {
 	num.Value = original.Value
 	num.Exp = original.Exp
-	num.encrypted = original.encrypted
+	num.encrypted = false
 
 	return num
 }
 
-// Function SetInt
+// Function SetEncrypted copy the values of the original Number into the current
+// Number num and return it as result. By default, the resulting Number will be
+// created as encrypted, to create as decrypted use number.Set() function.
+func (num *Number) SetEncrypted(original *Number) *Number {
+	num.Set(original)
+	num.encrypted = true
+	return num
+}
+
+// Function SetInt compute and stores into the current Number num the correct
+// integer value and exponent of the provided int input and return it as result.
 func (num *Number) SetInt(input int64) *Number {
 	var bInput = big.NewInt(input)
 
@@ -39,7 +68,9 @@ func (num *Number) SetInt(input int64) *Number {
 	return num
 }
 
-// Function SetFloat
+// Function SetFloat compute and stores into the current Number num the correct
+// integer value and exponent of the provided float input and return it as
+// result.
 func (num *Number) SetFloat(input float64) *Number {
 	var bInput = big.NewFloat(input)
 	var value, exp int64 = int64(input), 0
@@ -59,18 +90,8 @@ func (num *Number) SetFloat(input float64) *Number {
 	return num
 }
 
-// Function SetEncrypted
-func (num *Number) SetEncrypted(encrypted bool) *Number {
-	num.encrypted = encrypted
-	return num
-}
-
-// Function IsEncrypted
-func (num *Number) IsEncrypted() bool {
-	return num.encrypted
-}
-
-// Function Int
+// Function Int returns the original int value of the current Number num
+// computing the value of num.Value * 10^num.Exp.
 func (num *Number) Int() (output int64) {
 	var bOutput = new(big.Int).Set(num.Value)
 	var exp = num.Exp.Int64()
@@ -89,7 +110,8 @@ func (num *Number) Int() (output int64) {
 	return
 }
 
-// Function Float
+// Function Float returns the original float value of the current Number num
+// computing the value of num.Value * 10^num.Exp.
 func (num *Number) Float() (output float64) {
 	var bOutput = new(big.Float).SetInt(num.Value)
 	var exp = num.Exp.Int64()

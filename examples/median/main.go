@@ -16,12 +16,12 @@ func main() {
 	var encodedfirst = new(number.Number).SetInt(first)
 
 	// Instance the sumatories with the first value
-	var rawSumatory = float64(first)
+	var rawSumatory = first
 	var encryptedSumatory, _ = aClient.Encrypt(encodedfirst)
 
 	// Complete the sumatories iterating over the rest of the records
 	for _, num := range numbers[1:] {
-		rawSumatory += float64(num)
+		rawSumatory += num
 
 		var encoded = new(number.Number).SetInt(num)
 		encryptedSumatory, _ = sdk.Add(aClient.Key.PubKey, encryptedSumatory, encoded)
@@ -36,10 +36,10 @@ func main() {
 	var decodedMedian = decryptedMedian.Float()
 
 	// Calc raw median
-	var median = rawSumatory / float64(len(numbers))
+	var median = float64(rawSumatory) / float64(len(numbers))
 
 	// Make some prints
 	fmt.Printf("\nPerform median of %d numbers: \n%v\n", len(numbers), numbers)
-	fmt.Printf("\t- Raw sum: %.2f, Encrypted sum: %v\n", rawSumatory, encryptedSumatory)
+	fmt.Printf("\t- Raw sum: %d, Encrypted sum: %v\n", rawSumatory, encryptedSumatory)
 	fmt.Printf("\t- Raw median: %.2f, Decrypted median: %.2f\n\n", median, decodedMedian)
 }

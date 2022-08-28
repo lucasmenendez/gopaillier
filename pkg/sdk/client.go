@@ -29,9 +29,8 @@ func (client *Client) Encrypt(num *number.Number) (*number.Number, error) {
 	}
 
 	var err error
-	var result = new(number.Number).Set(num)
+	var result = new(number.Number).SetEncrypted(num)
 	result.Value, err = client.Key.PubKey.Encrypt(num.Value)
-	result.SetEncrypted(true)
 	return result, err
 }
 
@@ -44,6 +43,5 @@ func (client *Client) Decrypt(num *number.Number) (*number.Number, error) {
 	var err error
 	var result = new(number.Number).Set(num)
 	result.Value, err = client.Key.Decrypt(num.Value)
-	result.SetEncrypted(false)
 	return result, err
 }
