@@ -1,6 +1,8 @@
 package sdk
 
 import (
+	"errors"
+
 	"github.com/lucasmenendez/gopaillier/internal/number"
 	"github.com/lucasmenendez/gopaillier/pkg/paillier"
 )
@@ -18,15 +20,25 @@ func InitClient(keySize int) (*Client, error) {
 }
 
 func (client *Client) Encrypt(num *number.Number) (*number.Number, error) {
+	if num.IsEncrypted() {
+		return nil, errors.New("provided number is already encrypted")
+	}
+
 	var err error
-	var result = &number.Number{Exp: num.Exp}
-	result.Base, err = client.Key.PubKey.Encrypt(num.Base)
+	var result = new(number.Number).Set(num)
+	result.Value, err = client.Key.PubKey.Encrypt(num.Value)
+	result.SetEncrypted(true)
 	return result, err
 }
 
 func (client *Client) Decrypt(num *number.Number) (*number.Number, error) {
+	if !num.IsEncrypted() {
+		return nil, errors.New("provided number is not encrypted")
+	}
+
 	var err error
-	var result = &number.Number{Exp: num.Exp}
-	result.Base, err = client.Key.Decrypt(num.Base)
+	var result = new(number.Number).Set(num)
+	result.Value, err = client.Key.Decrypt(num.Value)
+	result.SetEncrypted(false)
 	return result, err
 }

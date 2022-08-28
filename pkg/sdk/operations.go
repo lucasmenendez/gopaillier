@@ -9,10 +9,12 @@ import (
 
 func Add(key *paillier.PublicKey, encrypted, input *number.Number) *number.Number {
 	var result = new(number.Number)
+	result.SetEncrypted(true)
+
 	var cmp = encrypted.Exp.Cmp(input.Exp)
 	if cmp == 0 {
 		result.Exp = encrypted.Exp
-		result.Base = key.Add(encrypted.Base, input.Base)
+		result.Value = key.Add(encrypted.Value, input.Value)
 		return result
 	}
 
@@ -20,12 +22,12 @@ func Add(key *paillier.PublicKey, encrypted, input *number.Number) *number.Numbe
 	var factor = new(big.Int).Exp(big.NewInt(10), expDiff, nil)
 	if cmp > 0 {
 		result.Exp = input.Exp
-		var normalized = key.Mul(encrypted.Base, factor)
-		result.Base = key.Add(normalized, input.Base)
+		var normalized = key.Mul(encrypted.Value, factor)
+		result.Value = key.Add(normalized, input.Value)
 	} else {
 		result.Exp = encrypted.Exp
-		var normalized = new(big.Int).Mul(input.Base, factor)
-		result.Base = key.Add(encrypted.Base, normalized)
+		var normalized = new(big.Int).Mul(input.Value, factor)
+		result.Value = key.Add(encrypted.Value, normalized)
 	}
 
 	return result
@@ -34,14 +36,15 @@ func Add(key *paillier.PublicKey, encrypted, input *number.Number) *number.Numbe
 func Sub(key *paillier.PublicKey, encrypted, input *number.Number) *number.Number {
 	var negInput = new(number.Number)
 	negInput.Exp = input.Exp
-	negInput.Base = new(big.Int).Neg(input.Base)
+	negInput.Value = new(big.Int).Neg(input.Value)
 	return Add(key, encrypted, negInput)
 }
 
 func Mul(key *paillier.PublicKey, encrypted, input *number.Number) *number.Number {
 	var result = new(number.Number)
-	result.Base = key.Mul(encrypted.Base, input.Base)
+	result.Value = key.Mul(encrypted.Value, input.Value)
 	result.Exp = new(big.Int).Add(encrypted.Exp, input.Exp)
+	result.SetEncrypted(true)
 	return result
 }
 

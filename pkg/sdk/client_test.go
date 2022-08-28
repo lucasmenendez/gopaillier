@@ -41,7 +41,7 @@ func TestEncryptDecrypt(t *testing.T) {
 	var client, _ = InitClient(512)
 
 	var wrongNum, _ = rand.Prime(rand.Reader, 2048)
-	var encodedWrong = &number.Number{Base: wrongNum, Exp: big.NewInt(0)}
+	var encodedWrong = &number.Number{Value: wrongNum, Exp: big.NewInt(0)}
 	if _, err = client.Encrypt(encodedWrong); err == nil {
 		t.Fatal("expected error, got nil")
 	}
@@ -55,10 +55,14 @@ func TestEncryptDecrypt(t *testing.T) {
 	var encryptedA, decryptedA = new(number.Number), new(number.Number)
 	if encryptedA, err = client.Encrypt(encodedA); err != nil {
 		t.Fatalf("expected nil, got %s", err)
-	} else if decryptedA, err = client.Decrypt(encryptedA); err != nil {
+	}  else if decryptedA, err = client.Decrypt(encryptedA); err != nil {
 		t.Fatalf("expected nil, got %s", err)
 	} else if a != decryptedA.Float() {
 		t.Fatalf("expected nil, got %s", err)
+	} else if _, err = client.Encrypt(encryptedA); err == nil {
+		t.Fatal("expected error, got nil")
+	} else if _, err = client.Decrypt(decryptedA); err == nil {
+		t.Fatal("expected error, got nil")
 	}
 
 	var encryptedB, decryptedB = new(number.Number), new(number.Number)

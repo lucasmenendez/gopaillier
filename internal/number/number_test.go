@@ -5,24 +5,51 @@ import (
 	"testing"
 )
 
+func TestSet(t *testing.T) {
+	var value = big.NewInt(123)
+	var exp = big.NewInt(3)
+
+	var expected = &Number{value, exp, false}
+	var result = new(Number).Set(expected)
+	if expected.Value.Cmp(result.Value) != 0 {
+		t.Fatalf("expected %d, got %d", expected.Value, result.Value)
+	} else if expected.Exp.Cmp(result.Exp) != 0 {
+		t.Fatalf("expected %d, got %d", expected.Exp, result.Exp)
+	} else if expected.encrypted != result.encrypted {
+		t.Fatalf("expected %t, got %t", expected.encrypted, result.encrypted)
+	}
+}
+
+func TestSetEncrypted(t *testing.T) {
+	var num = new(Number)
+	if num.encrypted != false || num.IsEncrypted() != false {
+		t.Fatalf("expected false, got %t", num.encrypted)
+	}
+
+	num.SetEncrypted(true)
+	if num.encrypted != true || num.IsEncrypted() != true {
+		t.Fatalf("expected true, got %t", num.encrypted)
+	}
+}
+
 func TestSetInt(t *testing.T) {
 	var A, B int64 = 12, -12400
-	var aBase, aExp *big.Int = big.NewInt(12), big.NewInt(0)
-	var bBase, bExp *big.Int = big.NewInt(-124), big.NewInt(2)
+	var aValue, aExp *big.Int = big.NewInt(12), big.NewInt(0)
+	var bValue, bExp *big.Int = big.NewInt(-124), big.NewInt(2)
 
 	var resA = new(Number).SetInt(A)
 	var resB = new(Number).SetInt(B)
 
-	if resA.Base.Cmp(aBase) != 0 {
-		t.Fatalf("expected %d, got %d", aBase, resA.Base)
+	if resA.Value.Cmp(aValue) != 0 {
+		t.Fatalf("expected %d, got %d", aValue, resA.Value)
 	}
 
 	if resA.Exp.Cmp(aExp) != 0 {
 		t.Fatalf("expected %d, got %d", aExp, resA.Exp)
 	}
 
-	if resB.Base.Cmp(bBase) != 0 {
-		t.Fatalf("expected %d, got %d", bBase, resB.Base)
+	if resB.Value.Cmp(bValue) != 0 {
+		t.Fatalf("expected %d, got %d", bValue, resB.Value)
 	}
 
 	if resB.Exp.Cmp(bExp) != 0 {
@@ -32,22 +59,22 @@ func TestSetInt(t *testing.T) {
 
 func TestSetFloat(t *testing.T) {
 	var A, B float64 = -800, 12400.36
-	var aBase, aExp *big.Int = big.NewInt(-8), big.NewInt(2)
-	var bBase, bExp *big.Int = big.NewInt(1240036), big.NewInt(-2)
+	var aValue, aExp *big.Int = big.NewInt(-8), big.NewInt(2)
+	var bValue, bExp *big.Int = big.NewInt(1240036), big.NewInt(-2)
 
 	var resA = new(Number).SetFloat(A)
 	var resB = new(Number).SetFloat(B)
 
-	if resA.Base.Cmp(aBase) != 0 {
-		t.Fatalf("expected %d, got %d", aBase, resA.Base)
+	if resA.Value.Cmp(aValue) != 0 {
+		t.Fatalf("expected %d, got %d", aValue, resA.Value)
 	}
 
 	if resA.Exp.Cmp(aExp) != 0 {
 		t.Fatalf("expected %d, got %d", aExp, resA.Exp)
 	}
 
-	if resB.Base.Cmp(bBase) != 0 {
-		t.Fatalf("expected %d, got %d", bBase, resB.Base)
+	if resB.Value.Cmp(bValue) != 0 {
+		t.Fatalf("expected %d, got %d", bValue, resB.Value)
 	}
 
 	if resB.Exp.Cmp(bExp) != 0 {

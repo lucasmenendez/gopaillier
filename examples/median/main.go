@@ -40,6 +40,6 @@ func main() {
 
 	// Make some prints
 	fmt.Printf("\nPerform median of %d numbers: \n%v\n", len(numbers), numbers)
-	fmt.Printf("\t- Raw sum: %.2f, Encrypted sum: %d\n", rawSumatory, encryptedSumatory)
+	fmt.Printf("\t- Raw sum: %.2f, Encrypted sum: %v\n", rawSumatory, encryptedSumatory)
 	fmt.Printf("\t- Raw median: %.2f, Decrypted median: %.2f\n\n", median, decodedMedian)
 }
