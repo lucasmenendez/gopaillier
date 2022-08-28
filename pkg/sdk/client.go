@@ -1,3 +1,4 @@
+// Package SDK
 package sdk
 
 import (
@@ -7,10 +8,12 @@ import (
 	"github.com/lucasmenendez/gopaillier/pkg/paillier"
 )
 
+// Struct Client
 type Client struct {
 	Key *paillier.PrivateKey
 }
 
+// Function InitClient
 func InitClient(keySize int) (*Client, error) {
 	var err error
 	var client = &Client{}
@@ -19,6 +22,7 @@ func InitClient(keySize int) (*Client, error) {
 	return client, err
 }
 
+// Function Encrypt
 func (client *Client) Encrypt(num *number.Number) (*number.Number, error) {
 	if num.IsEncrypted() {
 		return nil, errors.New("provided number is already encrypted")
@@ -31,6 +35,7 @@ func (client *Client) Encrypt(num *number.Number) (*number.Number, error) {
 	return result, err
 }
 
+// Function Decrypt
 func (client *Client) Decrypt(num *number.Number) (*number.Number, error) {
 	if !num.IsEncrypted() {
 		return nil, errors.New("provided number is not encrypted")

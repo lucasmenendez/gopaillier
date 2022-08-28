@@ -1,3 +1,4 @@
+// Package number
 package number
 
 import "math/big"
@@ -7,12 +8,14 @@ var iTen = big.NewInt(10)
 var fZero = big.NewFloat(0)
 var fTen = big.NewFloat(10)
 
+// Struct Number
 type Number struct {
 	Value     *big.Int
 	Exp       *big.Int
 	encrypted bool
 }
 
+// Function Set
 func (num *Number) Set(original *Number) *Number {
 	num.Value = original.Value
 	num.Exp = original.Exp
@@ -21,6 +24,7 @@ func (num *Number) Set(original *Number) *Number {
 	return num
 }
 
+// Function SetInt
 func (num *Number) SetInt(input int64) *Number {
 	var bInput = big.NewInt(input)
 
@@ -35,6 +39,7 @@ func (num *Number) SetInt(input int64) *Number {
 	return num
 }
 
+// Function SetFloat
 func (num *Number) SetFloat(input float64) *Number {
 	var bInput = big.NewFloat(input)
 	var value, exp int64 = int64(input), 0
@@ -54,15 +59,18 @@ func (num *Number) SetFloat(input float64) *Number {
 	return num
 }
 
+// Function SetEncrypted
 func (num *Number) SetEncrypted(encrypted bool) *Number {
 	num.encrypted = encrypted
 	return num
 }
 
+// Function IsEncrypted
 func (num *Number) IsEncrypted() bool {
 	return num.encrypted
 }
 
+// Function Int
 func (num *Number) Int() (output int64) {
 	var bOutput = new(big.Int).Set(num.Value)
 	var exp = num.Exp.Int64()
@@ -81,6 +89,7 @@ func (num *Number) Int() (output int64) {
 	return
 }
 
+// Function Float
 func (num *Number) Float() (output float64) {
 	var bOutput = new(big.Float).SetInt(num.Value)
 	var exp = num.Exp.Int64()

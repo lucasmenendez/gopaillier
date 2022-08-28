@@ -1,6 +1,6 @@
-package paillier
-
+// Package paillier ...
 // https://en.wikipedia.org/wiki/Paillier_cryptosystem
+package paillier
 
 import (
 	"crypto/rand"
@@ -10,17 +10,20 @@ import (
 
 var bOne *big.Int = new(big.Int).SetInt64(1)
 
+// Struct PublicKey
 type PublicKey struct {
 	N, Nsq, G *big.Int
 	Len       int64
 }
 
+// Struct PrivateKey
 type PrivateKey struct {
 	d, u   *big.Int
 	Len    int64
 	PubKey *PublicKey
 }
 
+// Function NewKeys
 func NewKeys(size int) (*PrivateKey, error) {
 	var err error
 	if size < 16 {
@@ -50,6 +53,7 @@ func NewKeys(size int) (*PrivateKey, error) {
 	}, nil
 }
 
+// Function Encrypt
 func (key *PublicKey) Encrypt(input *big.Int) (*big.Int, error) {
 	if input.Cmp(key.N) != -1 {
 		return nil, errors.New("input too long on encrypt")
@@ -80,6 +84,7 @@ func (key *PublicKey) Encrypt(input *big.Int) (*big.Int, error) {
 	return output, nil
 }
 
+// Function Decrypt
 func (key *PrivateKey) Decrypt(input *big.Int) (*big.Int, error) {
 	if input.Cmp(key.PubKey.Nsq) != -1 {
 		return nil, errors.New("input too long on decrypt")
@@ -102,16 +107,19 @@ func (key *PrivateKey) Decrypt(input *big.Int) (*big.Int, error) {
 	return new(big.Int).Sub(xn, n2), nil
 }
 
+// Function AddEncrypted
 func (key *PublicKey) AddEncrypted(a, b *big.Int) *big.Int {
 	return new(big.Int).Mod(new(big.Int).Mul(a, b), key.Nsq)
 }
 
+// Function Add
 func (key *PublicKey) Add(a, b *big.Int) *big.Int {
 	// x * g^y mod n^2
 	var gb = new(big.Int).Exp(key.G, b, key.Nsq)
 	return new(big.Int).Mod(new(big.Int).Mul(a, gb), key.Nsq)
 }
 
+// Function Mul
 func (key *PublicKey) Mul(a, b *big.Int) *big.Int {
 	// x^y mod n^2
 	return new(big.Int).Exp(a, b, key.Nsq)

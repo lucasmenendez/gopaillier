@@ -18,6 +18,7 @@ func checkArgs(encrypted, plain *number.Number) error {
 	return nil
 }
 
+// Function Add
 func Add(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Number, error) {
 	if err := checkArgs(encrypted, input); err != nil {
 		return nil, err
@@ -48,6 +49,7 @@ func Add(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	return result, nil
 }
 
+// Function Sub
 func Sub(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Number, error) {
 	if err := checkArgs(encrypted, input); err != nil {
 		return nil, err
@@ -59,6 +61,7 @@ func Sub(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	return Add(key, encrypted, negInput)
 }
 
+// Function Mul
 func Mul(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Number, error) {
 	if err := checkArgs(encrypted, input); err != nil {
 		return nil, err
@@ -71,6 +74,7 @@ func Mul(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Numb
 	return result, nil
 }
 
+// Function Div
 func Div(key *paillier.PublicKey, encrypted, input *number.Number) (*number.Number, error) {
 	if err := checkArgs(encrypted, input); err != nil {
 		return nil, err
