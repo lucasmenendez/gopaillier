@@ -15,7 +15,11 @@ Get package via `go` CLI:
 go get github.com/lucasmenendez/gopaillier/pkg/paillier
 ```
 
-### Encrypt and decrypt inputs
+### Basic use
+
+Checkout and basic example [here](/examples/basic/main.go).
+
+#### Encrypt and decrypt inputs
 
 ```go
 package main
@@ -45,7 +49,7 @@ func main() {
 }
 ```
 
-### Perform and addition and multiplication over encrypted data
+#### Perform and addition and multiplication over encrypted data
 
 ```go
 package main
