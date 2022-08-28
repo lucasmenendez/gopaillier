@@ -125,13 +125,12 @@ func TestDiv(t *testing.T) {
 		t.Fatalf("expected %s, got %s", rawDivlCD, sResult)
 	}
 
-	// TODO: Check this case!!
-	// var encryptedDivAC = Div(client.Key.PubKey, encryptedA, encodedC)
-	// var decryptedDivAC, _ = client.Decrypt(encryptedDivAC)
-	// var rawDivlAC = fmt.Sprintf("%f", a/float64(c))
-	// if sResult := fmt.Sprintf("%f", decryptedDivAC.Float()); rawDivlAC != sResult {
-	// 	t.Fatalf("expected %s, got %s", rawDivlAC, sResult)
-	// }
+	var encryptedDivAC = Div(client.Key.PubKey, encryptedA, encodedC)
+	var decryptedDivAC, _ = client.Decrypt(encryptedDivAC)
+	var rawDivlAC = fmt.Sprintf("%f", a/float64(c))
+	if sResult := fmt.Sprintf("%f", decryptedDivAC.Float()); rawDivlAC != sResult {
+		t.Fatalf("expected %s, got %s", rawDivlAC, sResult)
+	}
 
 	var encryptedDivBD = Div(client.Key.PubKey, encryptedB, encodedD)
 	var decryptedDivBD, _ = client.Decrypt(encryptedDivBD)

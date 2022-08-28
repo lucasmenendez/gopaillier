@@ -70,7 +70,7 @@ func TestInt(t *testing.T) {
 	}
 
 	var C, D float64 = 0.125, -12400.36
-	var expC, expD int64 = 0, -12400
+	var expC, expD int64 = 0, -12401
 
 	var resC = new(Number).SetFloat(C).Int()
 	var resD = new(Number).SetFloat(D).Int()

@@ -48,6 +48,5 @@ func Mul(key *paillier.PublicKey, encrypted, input *number.Number) *number.Numbe
 func Div(key *paillier.PublicKey, encrypted, input *number.Number) *number.Number {
 	var inverse = 1 / input.Float()
 	var invInput = new(number.Number).SetFloat(inverse)
-
 	return Mul(key, encrypted, invInput)
 }
