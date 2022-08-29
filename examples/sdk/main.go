@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	// var defaultPrecision int64 = 10
-
 	// Set A plain data and convert to Number
 	var aData float64 = 12.2
 	var aNum *number.Number = new(number.Number).SetFloat(aData)
@@ -23,7 +21,7 @@ func main() {
 	var bData float64 = -0.00005
 	var bNum *number.Number = new(number.Number).SetFloat(bData)
 
-	// Perform the multiplication between the encrypted received Number and the 
+	// Perform the multiplication between the encrypted received Number and the
 	// B Number using the received public key.
 	var sumEncrypted, _ = sdk.Add(aClient.Key.PubKey, aEncrypted, bNum)
 	var subEncrypted, _ = sdk.Sub(aClient.Key.PubKey, aEncrypted, bNum)
@@ -46,5 +44,4 @@ func main() {
 	fmt.Printf("%f - %f = %f\n", aData, bData, aSub)
 	fmt.Printf("%f * %f = %f\n", aData, bData, aMul)
 	fmt.Printf("%f / %f = %f\n", aData, bData, aDiv)
-
 }
