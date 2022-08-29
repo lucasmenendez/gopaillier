@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/lucasmenendez/gopaillier/internal/number"
+	"github.com/lucasmenendez/gopaillier/pkg/number"
 	"github.com/lucasmenendez/gopaillier/pkg/paillier"
 )
 

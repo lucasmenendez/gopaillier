@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/lucasmenendez/gopaillier/internal/number"
+	"github.com/lucasmenendez/gopaillier/pkg/number"
 )
 
 var a, b float64 = 1890.05213, -0.00125
