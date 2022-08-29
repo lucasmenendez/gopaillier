@@ -7,7 +7,7 @@
 Extended version of a Paillier cryptosystem implementation in Go. 
 
 ## Features
-- Uses Standard Form notation to encode numbers allowing to use Paillier encryption scheme over integer and floating points numbers (read more about [number package here](./internal/number/number.go)).
+- Uses Standard Form notation to encode numbers allowing to use Paillier encryption scheme over integer and floating points numbers (read more about [number package here](./pkg/number/number.go)).
 - Allows four different operations:
   - Addition between encrypted and plain numbers: `A' + B`.
   - subtraction between encrypted and plain numbers: `A' + (-B)`.
