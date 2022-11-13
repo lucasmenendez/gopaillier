@@ -36,12 +36,14 @@ func TestSetEncrypted(t *testing.T) {
 }
 
 func TestSetInt(t *testing.T) {
-	var A, B int64 = 12, -12400
+	var A, B, C int64 = 12, -12400, 0
 	var aValue, aExp *big.Int = big.NewInt(12), big.NewInt(0)
 	var bValue, bExp *big.Int = big.NewInt(-124), big.NewInt(2)
+	var cValue, cExp *big.Int = big.NewInt(0), big.NewInt(1)
 
 	var resA = new(Number).SetInt(A)
 	var resB = new(Number).SetInt(B)
+	var resC = new(Number).SetInt(C)
 
 	if resA.Value.Cmp(aValue) != 0 {
 		t.Fatalf("expected %d, got %d", aValue, resA.Value)
@@ -57,16 +59,26 @@ func TestSetInt(t *testing.T) {
 
 	if resB.Exp.Cmp(bExp) != 0 {
 		t.Fatalf("expected %d, got %d", bExp, resB.Exp)
+	}
+
+	if resC.Value.Cmp(cValue) != 0 {
+		t.Fatalf("expected %d, got %d", cValue, resC.Value)
+	}
+
+	if resC.Exp.Cmp(cExp) != 0 {
+		t.Fatalf("expected %d, got %d", cExp, resC.Exp)
 	}
 }
 
 func TestSetFloat(t *testing.T) {
-	var A, B float64 = -800, 12400.36
+	var A, B, C float64 = -800, 12400.36, 0
 	var aValue, aExp *big.Int = big.NewInt(-8), big.NewInt(2)
 	var bValue, bExp *big.Int = big.NewInt(1240036), big.NewInt(-2)
+	var cValue, cExp *big.Int = big.NewInt(0), big.NewInt(1)
 
 	var resA = new(Number).SetFloat(A)
 	var resB = new(Number).SetFloat(B)
+	var resC = new(Number).SetFloat(C)
 
 	if resA.Value.Cmp(aValue) != 0 {
 		t.Fatalf("expected %d, got %d", aValue, resA.Value)
@@ -82,6 +94,14 @@ func TestSetFloat(t *testing.T) {
 
 	if resB.Exp.Cmp(bExp) != 0 {
 		t.Fatalf("expected %d, got %d", bExp, resB.Exp)
+	}
+
+	if resC.Value.Cmp(cValue) != 0 {
+		t.Fatalf("expected %d, got %d", cValue, resC.Value)
+	}
+
+	if resC.Exp.Cmp(cExp) != 0 {
+		t.Fatalf("expected %d, got %d", cExp, resC.Exp)
 	}
 }
 

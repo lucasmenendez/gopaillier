@@ -12,6 +12,7 @@ package number
 import "math/big"
 
 var iZero = big.NewInt(0)
+var iOne = big.NewInt(1)
 var iTen = big.NewInt(10)
 var fZero = big.NewFloat(0)
 var fTen = big.NewFloat(10)
@@ -55,8 +56,13 @@ func (num *Number) SetEncrypted(original *Number) *Number {
 // Function SetInt compute and stores into the current Number num the correct
 // integer value and exponent of the provided int input and return it as result.
 func (num *Number) SetInt(input int64) *Number {
-	var bInput = big.NewInt(input)
+	if input == 0 {
+		num.Value = iZero
+		num.Exp = iOne
+		return num
+	}
 
+	var bInput = big.NewInt(input)
 	var exp int64
 	for new(big.Int).Mod(bInput, iTen).Cmp(iZero) == 0 {
 		bInput.Div(bInput, iTen)
